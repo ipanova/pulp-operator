@@ -30,53 +30,21 @@
 # project: The project (username/organization) on the registry to push to,
 #          and to tag for.
 images:
-  - pulpcore_stable:
-      image_name: pulpcore
-      tag: stable
-      container_file: Containerfile.core
   - pulpcore_master:
       image_name: pulpcore
       tag: latest
       container_file: Containerfile.core
       # Must specify egg name here so that the Dockerfile can specify the
       # setuptools extra of postgres
-      pulpcore: git+https://github.com/pulp/pulpcore.git#egg=pulpcore
-  - pulp_stable_plugins_stable:
-      image_name: pulp
-      tag: stable
-      container_file: Containerfile.core
-      plugins:
-        - pulp-certguard
-        - pulp-file
-        - pulp-ansible
-        - pulp-container
-        - pulp-deb
-        - pulp-maven
-        - pulp-python
-        - pulp-rpm
+      pulpcore: git+https://github.com/ipanova/pulpcore.git@upload-chunk#egg=pulpcore
   - pulp_master_plugins_master:
       image_name: pulp
       tag: latest
       container_file: Containerfile.core
-      pulpcore: git+https://github.com/pulp/pulpcore.git#egg=pulpcore
+      pulpcore: git+https://github.com/ipanova/pulpcore.git@upload-chunk#egg=pulpcore
       plugins:
         - "git+https://github.com/pulp/pulp-certguard.git"
-        - "git+https://github.com/pulp/pulp_file.git"
-        - "git+https://github.com/pulp/pulp_ansible.git"
-        - "git+https://github.com/pulp/pulp_container.git"
-        - "git+https://github.com/pulp/pulp_deb.git"
-        - "git+https://github.com/pulp/pulp_maven.git"
-        - "git+https://github.com/pulp/pulp_python.git"
-        - "git+https://github.com/pulp/pulp_rpm.git"
-  - pulp_web_stable:
-      image_name: pulp-web
-      tag: stable
-      container_file: Containerfile.web
-      base_image_name: pulp
-      python_version: "3.9"
-      plugin_snippets:
-        - pulp_ansible
-        - pulp_container
+        - "git+https://github.com/ipanova/pulp_container.git@upload-chunked"
   - pulp_web_master:
       image_name: pulp-web
       tag: latest
@@ -84,7 +52,6 @@ images:
       base_image_name: pulp
       python_version: "3.9"
       plugin_snippets:
-        - pulp_ansible
         - pulp_container
-registry: quay.io
-project: pulp
+registry: docker.io
+project: ipanova
